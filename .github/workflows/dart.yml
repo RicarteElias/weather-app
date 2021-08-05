@@ -26,6 +26,14 @@ jobs:
 
       - name: Install dependencies
         run: dart pub get
+        
+
+      - name: Setup Flutter ${{ matrix.flutter-version }}
+        id: flutter
+        if: "!startsWith(matrix.bot, 'dart')"
+        uses: DanTup/gh-actions/setup-flutter@master
+        with:
+          channel: ${{ matrix.flutter-version }}
 
       # Uncomment this step to verify the use of 'dart format' on each commit.
       # - name: Verify formatting
