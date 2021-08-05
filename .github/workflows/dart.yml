@@ -23,7 +23,15 @@ jobs:
         with:
           channel: 'stable'
       - run: flutter upgrade
+      
       - name : Get dependencie
         run : flutter pub get
+        
+      - name : Flutter format
+        run :  flutter format --set-exit-if-changed
+        
+      - name : Analyze Flutter
+        run : flutter analyzet  
+        
       - name : Testing
         run : flutter test
