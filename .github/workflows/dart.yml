@@ -28,10 +28,10 @@ jobs:
         run : flutter pub get
         
       - name : Flutter format
-        run :  flutter format --set-exit-if-changed
+        run :  flutter format --set-exit-if-changed .
         
       - name : Analyze Flutter
-        run : flutter analyzet  
+        run : flutter analyze .
         
       - name : Testing
         run : flutter test
