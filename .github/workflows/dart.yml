@@ -1,50 +1,29 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
+name: Dart CI
 
-name: Dart
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [pull_request,push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
 
     steps:
       - uses: actions/checkout@v2
-
-      # Note: This workflow uses the latest stable version of the Dart SDK.
-      # You can specify other versions if desired, see documentation here:
-      # https://github.com/dart-lang/setup-dart/blob/main/README.md
-      # - uses: dart-lang/setup-dart@v1
-      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
-
-      - name: Install dependencies
-        run: dart pub get
-        
-
-      - name: Setup Flutter ${{ matrix.flutter-version }}
-        id: flutter
-        if: "!startsWith(matrix.bot, 'dart')"
-        uses: DanTup/gh-actions/setup-flutter@master
+      - uses: actions/setup-java@v1
         with:
-          channel: ${{ matrix.flutter-version }}
-
-      # Uncomment this step to verify the use of 'dart format' on each commit.
-      # - name: Verify formatting
-      #   run: dart format --output=none --set-exit-if-changed .
-
-      # Consider passing '--fatal-infos' for slightly stricter analysis.
-      - name: Analyze project source
-        run: dart analyze
-
-      # Your project will need to have tests in test/ and a dependency on
-      # package:test for this step to succeed. Note that Flutter projects will
-      # want to change this to 'flutter test'.
-      - name: Run tests
-        run: dart test
+          java-version: '12.x'
+      - name: Flutter action
+        uses: actions/cache@v1
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: ${{ runner.OS }}-flutter-install-cache-${{ env.flutter_version }}
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - run: flutter upgrade
+      - name : Get dependencie
+        run : flutter pub get
+      - name : Testing
+        run : flutter test
