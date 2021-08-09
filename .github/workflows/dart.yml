@@ -30,8 +30,8 @@ jobs:
         #      - name : Flutter format
         #        run :  flutter format --set-exit-if-changed .
 
-      - name: Analyze Flutter
-        run: flutter analyze .
+      #      - name: Analyze Flutter
+      #        run: flutter analyze .
 
       - name: Testing
         run: flutter test
