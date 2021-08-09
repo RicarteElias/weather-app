@@ -1,10 +1,12 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:weather_app/core/bloc/event/loading_event.dart';
 import 'package:weather_app/core/bloc/event/redirect_event.dart';
 import 'package:weather_app/core/bloc/listener/exception_listener.dart';
 import 'package:weather_app/core/bloc/listener/failure_listener.dart';
+import 'package:weather_app/core/bloc/state/loading_state.dart';
 import 'package:weather_app/core/errors/failure.dart';
 
 part 'event/base_event.dart';
@@ -17,7 +19,13 @@ class BaseBloc extends Bloc<BaseEvent, BaseState> {
   @override
   Stream<BaseState> mapEventToState(
     BaseEvent event,
-  ) async* {}
+  ) async* {
+    if (event is LoadingEvent) {
+      yield LoadingState();
+      BaseState state = await event.dispatch();
+      yield state;
+    }
+  }
 
   @override
   void onError(Object error, StackTrace stackTrace) {

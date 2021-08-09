@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:weather_app/core/service/http.dart';
 
-GetIt getIt = GetIt.instance;
+final GetIt getIt = GetIt.instance;
 
 void main() {
   getIt.registerSingleton<Http>(Http());
