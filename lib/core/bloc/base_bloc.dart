@@ -24,6 +24,8 @@ class BaseBloc extends Bloc<BaseEvent, BaseState> {
       yield LoadingState();
       BaseState state = await event.dispatch();
       yield state;
+    } else if (event is RedirectEvent) {
+      yield event.reaction;
     }
   }
 

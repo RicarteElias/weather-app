@@ -12,10 +12,10 @@ class LocationbRepositoryImpl extends BaseService
   final String _key = 'AIzaSyD_mBSsoM9iauGzzUl4wgnA42BbAs7v6Zw';
 
   @override
-  Future<Either<Failure, Address?>> searchLocation(String? searchText) async {
+  Future<Either<Failure, Address>?> searchLocation(String? searchText) async {
     try {
       Response response = await http.get('$_baseUrl$searchText&key=$_key');
-      return right(Address());
+      return null;
     } on DioError catch (e) {
       return left(Failure(e.message));
     }

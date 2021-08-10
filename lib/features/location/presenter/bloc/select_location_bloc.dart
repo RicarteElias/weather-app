@@ -1,20 +1,22 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:weather_app/core/bloc/base_bloc.dart';
 
 part 'events/select_location_event.dart';
 
 part 'states/select_location_state.dart';
 
-class SelectLocationBloc
-    extends Bloc<SelectLocationEvent, SelectLocationState> {
-  SelectLocationBloc() : super(SelectLocationInitial());
+class SelectLocationBloc extends BaseBloc {
+  @override
+  Stream<BaseState> mapEventToState(
+    BaseEvent event,
+  ) async* {
+    yield* super.mapEventToState(event);
+  }
 
   @override
-  Stream<SelectLocationState> mapEventToState(
-    SelectLocationEvent event,
-  ) async* {
-    // TODO: implement mapEventToState
+  void onError(Object error, StackTrace stackTrace) {
+    super.onError(error, stackTrace);
   }
 }
