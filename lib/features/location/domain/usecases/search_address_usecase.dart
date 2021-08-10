@@ -10,7 +10,7 @@ class SearchAddressUsecase with UseCase<Address, String> {
   SearchAddressUsecase(this.locationRepository);
 
   @override
-  Future<Either<Failure, Address>?> call(String? params) {
+  Future<Either<Failure, Address>?>? call(String? params) {
     return locationRepository!.searchLocation(params);
   }
 }

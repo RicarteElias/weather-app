@@ -28,7 +28,7 @@ main() {
         .thenAnswer((realInvocation) async => Right(tAddress));
 
     final result = await usecase!(searchText);
-    expect(result, tAddress);
+    expect(result, Right(tAddress));
     verify(locationRepositoryMock!.searchLocation(searchText));
     verifyNoMoreInteractions(locationRepositoryMock);
   });
