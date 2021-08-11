@@ -8,8 +8,8 @@ class AddressComponentModel extends AddressComponent {
   AddressComponentModel(
       {required String longName,
       required String shortName,
-      required List<String> type})
-      : super(longName, shortName, type);
+      required List<String> types})
+      : super(longName, shortName, types);
 
   factory AddressComponentModel.fromJson(Map<String, dynamic> json) =>
       _$AddressComponentModelFromJson(json);

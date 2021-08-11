@@ -8,17 +8,17 @@ part of 'address_model.dart';
 
 AddressModel _$AddressModelFromJson(Map<String, dynamic> json) {
   return AddressModel(
-    addressComponents: (json['addressComponents'] as List<dynamic>)
+    addressComponents: (json['address_components'] as List<dynamic>)
         .map((e) => AddressComponentModel.fromJson(e as Map<String, dynamic>))
         .toList(),
-    formmatedAddress: json['formmatedAddress'] as String,
+    formmatedAddress: json['formatted_address'] as String,
     geometry: GeometryModel.fromJson(json['geometry'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$AddressModelToJson(AddressModel instance) =>
     <String, dynamic>{
-      'addressComponents': instance.addressComponents,
-      'formmatedAddress': instance.formmatedAddress,
+      'address_components': instance.addressComponents,
+      'formatted_address': instance.formmatedAddress,
       'geometry': instance.geometry,
     };

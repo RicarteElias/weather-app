@@ -1,0 +1,84 @@
+{
+  "address_components": [
+    {
+      "long_name": "Rua Cambé",
+      "short_name": "R. Cambé",
+      "types": [
+        "route"
+      ]
+    },
+    {
+      "long_name": "Santo Amaro",
+      "short_name": "Santo Amaro",
+      "types": [
+        "political",
+        "sublocality",
+        "sublocality_level_1"
+      ]
+    },
+    {
+      "long_name": "São Paulo",
+      "short_name": "São Paulo",
+      "types": [
+        "administrative_area_level_2",
+        "political"
+      ]
+    },
+    {
+      "long_name": "São Paulo",
+      "short_name": "SP",
+      "types": [
+        "administrative_area_level_1",
+        "political"
+      ]
+    },
+    {
+      "long_name": "Brazil",
+      "short_name": "BR",
+      "types": [
+        "country",
+        "political"
+      ]
+    },
+    {
+      "long_name": "04747",
+      "short_name": "04747",
+      "types": [
+        "postal_code",
+        "postal_code_prefix"
+      ]
+    }
+  ],
+  "formatted_address": "R. Cambé - Santo Amaro, São Paulo - SP, 04747, Brazil",
+  "geometry": {
+    "bounds": {
+      "northeast": {
+        "lat": -23.6518453,
+        "lng": -46.6937576
+      },
+      "southwest": {
+        "lat": -23.6536728,
+        "lng": -46.6960409
+      }
+    },
+    "location": {
+      "lat": -23.6526206,
+      "lng": -46.6948208
+    },
+    "location_type": "GEOMETRIC_CENTER",
+    "viewport": {
+      "northeast": {
+        "lat": -23.65141006970849,
+        "lng": -46.6935502697085
+      },
+      "southwest": {
+        "lat": -23.6541080302915,
+        "lng": -46.69624823029149
+      }
+    }
+  },
+  "place_id": "ChIJ29O7f1tQzpQRCbsgHZ_JvXI",
+  "types": [
+    "route"
+  ]
+}

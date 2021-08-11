@@ -80,12 +80,12 @@ class MockAddressComponent extends _i1.Mock implements _i5.AddressComponent {
       super.noSuchMethod(Invocation.setter(#shortName, _shortName),
           returnValueForMissingStub: null);
   @override
-  List<String> get type =>
-      (super.noSuchMethod(Invocation.getter(#type), returnValue: <String>[])
+  List<String> get types =>
+      (super.noSuchMethod(Invocation.getter(#types), returnValue: <String>[])
           as List<String>);
   @override
-  set type(List<String>? _type) =>
-      super.noSuchMethod(Invocation.setter(#type, _type),
+  set types(List<String>? _types) =>
+      super.noSuchMethod(Invocation.setter(#types, _types),
           returnValueForMissingStub: null);
   @override
   Map<String, dynamic> toJson() =>
