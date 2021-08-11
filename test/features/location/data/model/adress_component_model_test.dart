@@ -14,13 +14,10 @@ void main() {
   });
 
   group('fromJson', () {
-    test('should return a valid model', () async {
+    test('should return a valid entitie of AddressComponent', () async {
       final Map<String, dynamic> jsonMap =
           json.decode(fixture('address_component.json'));
-      print(jsonMap);
-
       final result = AddressComponentModel.fromJson(jsonMap);
-      print(result);
       expect(result, isA<AddressComponent>());
     });
   });
