@@ -35,6 +35,7 @@ dependencies:
   flutter_bloc: ^7.0.0
   bloc: ^7.0.0
   equatable: ^2.0.3
+  json_annotation: ^4.0.1
 
 
 dev_dependencies:

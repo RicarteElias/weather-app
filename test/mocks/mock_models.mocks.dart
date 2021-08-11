@@ -48,9 +48,9 @@ class MockAddressModel extends _i1.Mock implements _i4.AddressModel {
   _i2.Geometry get geometry => (super.noSuchMethod(Invocation.getter(#geometry),
       returnValue: _FakeGeometry_0()) as _i2.Geometry);
   @override
-  List<Object?> get props =>
-      (super.noSuchMethod(Invocation.getter(#props), returnValue: <Object?>[])
-          as List<Object?>);
+  Map<String, dynamic> toJson() =>
+      (super.noSuchMethod(Invocation.method(#toJson, []),
+          returnValue: <String, dynamic>{}) as Map<String, dynamic>);
   @override
   String toString() => super.toString();
 }
@@ -88,6 +88,10 @@ class MockAddressComponent extends _i1.Mock implements _i5.AddressComponent {
       super.noSuchMethod(Invocation.setter(#type, _type),
           returnValueForMissingStub: null);
   @override
+  Map<String, dynamic> toJson() =>
+      (super.noSuchMethod(Invocation.method(#toJson, []),
+          returnValue: <String, dynamic>{}) as Map<String, dynamic>);
+  @override
   String toString() => super.toString();
 }
 
@@ -106,6 +110,10 @@ class MockGeometryModel extends _i1.Mock implements _i6.GeometryModel {
   set location(_i3.Location? _location) =>
       super.noSuchMethod(Invocation.setter(#location, _location),
           returnValueForMissingStub: null);
+  @override
+  Map<String, dynamic> toJson() =>
+      (super.noSuchMethod(Invocation.method(#toJson, []),
+          returnValue: <String, dynamic>{}) as Map<String, dynamic>);
   @override
   String toString() => super.toString();
 }
@@ -130,6 +138,10 @@ class MockLocationModel extends _i1.Mock implements _i7.LocationModel {
   @override
   set lng(num? _lng) => super.noSuchMethod(Invocation.setter(#lng, _lng),
       returnValueForMissingStub: null);
+  @override
+  Map<String, dynamic> toJson() =>
+      (super.noSuchMethod(Invocation.method(#toJson, []),
+          returnValue: <String, dynamic>{}) as Map<String, dynamic>);
   @override
   String toString() => super.toString();
 }

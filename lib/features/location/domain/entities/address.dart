@@ -1,8 +1,7 @@
-import 'package:equatable/equatable.dart';
 import 'package:weather_app/features/location/domain/entities/address_component.dart';
 import 'package:weather_app/features/location/domain/entities/geometry.dart';
 
-class Address extends Equatable {
+class Address {
   final List<AddressComponent> addressComponents;
   final String formmatedAddress;
   final Geometry geometry;
@@ -12,6 +11,10 @@ class Address extends Equatable {
       required this.formmatedAddress,
       required this.geometry});
 
-  @override
-  List<Object?> get props => [addressComponents, formmatedAddress, geometry];
+  factory Address.fromJson(Map<String, dynamic> json) {
+    return Address(
+        addressComponents: json['addressComponents'],
+        geometry: json['geometry'],
+        formmatedAddress: json['formmatedAddress']);
+  }
 }
