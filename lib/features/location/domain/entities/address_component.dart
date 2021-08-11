@@ -11,7 +11,7 @@ class AddressComponent {
   AddressComponent(this.longName, this.shortName, this.type);
 
   factory AddressComponent.fromJson(Map<String, dynamic> json) =>
-      _$AddresComponentFromJson(json);
+      _$AddressComponentFromJson(json);
 
   Map<String, dynamic> toJson() => _$AddressComponentToJson(this);
 }
