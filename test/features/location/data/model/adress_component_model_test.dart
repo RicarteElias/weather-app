@@ -14,7 +14,7 @@ void main() {
   });
 
   group('fromJson', () {
-    test('should return a valid entitie of AddressComponent', () async {
+    test('should return a valid entity of AddressComponent', () async {
       final Map<String, dynamic> jsonMap =
           json.decode(fixture('address_component.json'));
       final result = AddressComponentModel.fromJson(jsonMap);

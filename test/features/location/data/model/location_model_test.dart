@@ -14,12 +14,10 @@ void main() {
   });
 
   group('fromJson', () {
-    test('should return a valid model', () async {
+    test('should return a valid entity of Location', () async {
       final Map<String, dynamic> jsonMap =
           json.decode(fixture('location.json'));
-      print(jsonMap);
       final result = LocationModel.fromJson(jsonMap);
-      print(result);
       expect(result, isA<Location>());
     });
   });

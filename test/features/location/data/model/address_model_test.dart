@@ -13,7 +13,7 @@ void main() {
     expect(tAddress, isA<Address>());
   });
   group('fromJson', () {
-    test('should return a valid model', () async {
+    test('should return a valid entity of Address', () async {
       final Map<String, dynamic> jsonMap = json.decode(fixture('address.json'));
       final result = AddressModel.fromJson(jsonMap);
       expect(result, isA<Address>());
