@@ -17,7 +17,6 @@ void main() {
     test('should return a valid entity of Geomtry', () async {
       final Map<String, dynamic> jsonMap =
           json.decode(fixture('geometry.json'));
-      print(jsonMap);
       final result = GeometryModel.fromJson(jsonMap);
       expect(result, isA<Geometry>());
     });

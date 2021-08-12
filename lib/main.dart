@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:weather_app/core/service/http.dart';
 
-final GetIt getIt = GetIt.instance;
+final GetIt injectorInterface = GetIt.instance;
 
-void main() {
-  getIt.registerSingleton<Http>(Http());
+setUpInjectorInterface() async {
+  return injectorInterface.registerSingleton<Http>(Http());
+}
 
+Future<void> main() async {
+  print('farofa');
+  WidgetsFlutterBinding.ensureInitialized();
+  await setUpInjectorInterface();
   runApp(MyApp());
 }
 
