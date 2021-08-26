@@ -5,7 +5,7 @@ abstract class LocationLocalDataSource {
   /// the user had an internet connection.
   ///
   /// Throws [NoLocalDataException] if no cached data is present.
-  Future<AddressModel> getLastNumberTrivia();
+  Future<AddressModel> searchLocationFromLocal();
 
-  Future<void> cacheNumberTrivia(AddressModel addressToCache);
+  Future<void> cacheLocation(AddressModel addressToCache);
 }
