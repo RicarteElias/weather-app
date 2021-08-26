@@ -2,6 +2,7 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
+import 'package:weather_app/core/components/themes.dart';
 import 'package:weather_app/core/service/http.dart';
 import 'package:weather_app/features/location/presenter/select_location_screen.dart';
 
@@ -25,9 +26,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ThemeProvider(builder: (context, myTheme) {
-      return MaterialApp(
-          title: 'Flutter Demo', theme: myTheme, home: SelectLocationScreen());
-    });
+    return ThemeProvider(
+        initTheme: AppThemes.light,
+        builder: (context, myTheme) {
+          return MaterialApp(
+              title: 'Flutter Demo',
+              theme: myTheme,
+              home: SelectLocationScreen());
+        });
   }
 }
