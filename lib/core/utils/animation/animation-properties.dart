@@ -4,5 +4,6 @@ enum AnimationProperties {
   color,
   padding,
   borderRadius,
-  opacity
+  opacity,
+  aligment
 }

@@ -14,16 +14,19 @@ class AppThemes {
           style: ButtonStyle(
               backgroundColor:
                   MaterialStateProperty.all<Color>(AppColors.PRIMARY_DARK))));
-
   static const _BODY_TEXT_DARK =
       TextTheme(bodyText2: TextStyle(color: AppColors.TEXT_PRIMARY_DARK));
 
   ///LIGHT THEME
   static final ThemeData light = ThemeData(
+      appBarTheme: AppBarTheme(color: AppColors.BACKGROUND_LIGHT),
       scaffoldBackgroundColor: Colors.white,
       textTheme: _BODY_TEXT_LIGHT,
-      errorColor: AppColors.ERROR_LIGHT);
-
+      errorColor: AppColors.ERROR_LIGHT,
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(AppColors.PRIMARY_LIGHT))));
   static const _BODY_TEXT_LIGHT =
       TextTheme(bodyText2: TextStyle(color: AppColors.TEXT_PRIMARY_LIGHT));
 }

@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:weather_app/core/utils/animation/animation-properties.dart';
+import 'package:weather_app/core/utils/theme/AppColors.dart';
 import 'package:weather_app/features/location/presenter/select_location_screen.dart';
 
 class SelectLocationState extends State<SelectLocationScreen>
@@ -38,7 +39,7 @@ class SelectLocationState extends State<SelectLocationScreen>
                     controller.reverse();
                   },
                   icon: Icon(FontAwesomeIcons.mapMarker),
-                  label: Text("Localilização"))
+                  label: Text("Localização"))
             ],
           ),
         ),
@@ -61,10 +62,11 @@ class SelectLocationState extends State<SelectLocationScreen>
             delay: 100.milliseconds,
             duration: 250.milliseconds,
             curve: Curves.ease)
-        .animate(AnimationProperties.height,
-            tween: Tween(begin: 40.0, end: 10.0))
-        .animate(AnimationProperties.width,
-            tween: Tween(begin: 200.0, end: 10.0))
+        .animate(
+          AnimationProperties.height,
+          tween: 45.0.tweenTo(10.0),
+        )
+        .animate(AnimationProperties.width, tween: 200.0.tweenTo(10.0))
         .animate(
           AnimationProperties.borderRadius,
           tween: BorderRadiusTween(
@@ -73,36 +75,37 @@ class SelectLocationState extends State<SelectLocationScreen>
           ),
         )
         .addSubsequentScene(duration: 250.milliseconds)
-        .animate(AnimationProperties.padding,
-            tween: EdgeInsetsTween(
-                begin: EdgeInsets.only(top: 0), end: EdgeInsets.only(top: 200)))
-        .animate(AnimationProperties.opacity,
-            tween: Tween(begin: 1.0, end: 0.0))
+        .animate(AnimationProperties.aligment,
+            tween: AlignmentTween(
+                begin: Alignment.bottomCenter, end: Alignment.topCenter))
         .addSubsequentScene(
             delay: 100.milliseconds,
             duration: 250.milliseconds,
             curve: Curves.ease)
         .animate(AnimationProperties.height,
-            tween: Tween(begin: 10.0, end: 40.0))
-        .animate(AnimationProperties.width,
-            tween: Tween(begin: 10.0, end: 500.0))
+            tween: Tween(begin: 10.0, end: 45.0))
+        .animate(AnimationProperties.width, tween: 10.0.tweenTo(500.0))
+        .animate(AnimationProperties.color,
+            tween: ColorTween(
+                begin: AppColors.PRIMARY_DARK, end: Colors.deepPurple))
         .parent
         .animate(controller);
   }
 
   Widget _buildAnmatedWidget(BuildContext context, Widget? child) {
     return Container(
-      alignment: Alignment.topCenter,
-      margin: EdgeInsets.only(left: 10, right: 10),
+      alignment: animation.value.get(AnimationProperties.aligment),
+      margin: EdgeInsets.only(left: 10, right: 10, top: 5),
       height: MediaQuery.of(context).size.height * 0.45,
       child: Container(
         width: animation.value.get(AnimationProperties.width),
         height: animation.value.get(AnimationProperties.height),
         decoration: BoxDecoration(
-          border: Border.all(),
           borderRadius: animation.value.get(AnimationProperties.borderRadius),
         ),
         child: ElevatedButton.icon(
+            // style: ElevatedButton.styleFrom(
+            //     primary: animation.value.get(AnimationProperties.color)),
             onPressed: () {
               controller.play();
             },

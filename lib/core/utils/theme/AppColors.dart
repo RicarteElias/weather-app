@@ -12,7 +12,7 @@ class AppColors {
   static const Color TEXT_VARIANT_DARK = Colors.black;
 
   ///Light Theme
-  static const Color BACKGROUND_LIGHT = Color.fromRGBO(18, 18, 18, 1);
+  static const Color BACKGROUND_LIGHT = Colors.white10;
   static const Color ERROR_LIGHT = Color.fromRGBO(176, 0, 32, 1);
   static const Color PRIMARY_LIGHT = Color.fromRGBO(98, 0, 232, 1);
   static const Color PRIMARY_VARIANT_LIGHT = Color.fromRGBO(55, 0, 179, 1);
