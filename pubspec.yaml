@@ -38,6 +38,9 @@ dependencies:
   json_annotation: ^4.0.1
   logger: ^1.0.0
   animated_theme_switcher: ^2.0.1
+  font_awesome_flutter: ^9.1.0
+  simple_animations: ^3.1.1
+  supercharged: ^2.0.0
 
 
 dev_dependencies:

@@ -4,6 +4,7 @@ import 'package:weather_app/core/utils/theme/AppColors.dart';
 class AppThemes {
   ///DARK THEME
   static final ThemeData dark = ThemeData(
+      appBarTheme: AppBarTheme(color: AppColors.BACKGROUND_DARK),
       snackBarTheme: SnackBarThemeData(),
       iconTheme: IconThemeData(),
       scaffoldBackgroundColor: AppColors.BACKGROUND_DARK,
