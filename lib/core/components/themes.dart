@@ -6,7 +6,8 @@ class AppThemes {
   static final ThemeData dark = ThemeData(
       appBarTheme: AppBarTheme(color: AppColors.BACKGROUND_DARK),
       snackBarTheme: SnackBarThemeData(),
-      iconTheme: IconThemeData(),
+      primaryColor: AppColors.PRIMARY_DARK,
+      iconTheme: IconThemeData(color: Colors.white),
       scaffoldBackgroundColor: AppColors.BACKGROUND_DARK,
       textTheme: _BODY_TEXT_DARK,
       errorColor: AppColors.ERROR_DARK,
@@ -25,6 +26,8 @@ class AppThemes {
   static final ThemeData light = ThemeData(
       appBarTheme: AppBarTheme(color: AppColors.BACKGROUND_LIGHT),
       scaffoldBackgroundColor: Colors.white,
+      primaryColor: AppColors.PRIMARY_LIGHT,
+      iconTheme: IconThemeData(color: Colors.white),
       textTheme: _BODY_TEXT_LIGHT,
       errorColor: AppColors.ERROR_LIGHT,
       elevatedButtonTheme: ElevatedButtonThemeData(

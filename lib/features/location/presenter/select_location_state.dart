@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,16 +15,13 @@ class SelectLocationState extends State<SelectLocationScreen>
   late AnimationController controller;
 
   late Animation<TimelineValue<AnimationProperties>> animation;
-  late Animatable<TimelineValue<AnimationProperties>> animationTable;
-
-  @override
-  void initState() {
-    super.initState();
-    _buildAnimation();
-  }
+  bool _isNotAnimated = true;
 
   @override
   Widget build(BuildContext context) {
+    if (_isNotAnimated) {
+      _buildAnimation();
+    }
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
@@ -39,19 +37,59 @@ class SelectLocationState extends State<SelectLocationScreen>
                   AnimatedBuilder(
                     animation: controller,
                     builder: (BuildContext context, widget) => Container(
+                      margin: EdgeInsets.only(left: 5, top: 5, right: 5),
                       alignment:
                           animation.value.get(AnimationProperties.aligment),
-                      margin: EdgeInsets.only(left: 10, right: 10, top: 5),
+                      width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.45,
-                      child: Container(
-                          width: animation.value.get(AnimationProperties.width),
-                          height:
-                              animation.value.get(AnimationProperties.height),
-                          decoration: BoxDecoration(
-                            borderRadius: animation.value
-                                .get(AnimationProperties.borderRadius),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 40,
+                            width: animation.value
+                                .get(AnimationProperties.widthTextField),
+                            color: Theme.of(context).primaryColor,
+                            child: Center(
+                                child: TextField(
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.only(left: 5)),
+                              textAlign: TextAlign.left,
+                            )),
                           ),
-                          child: _buildSearchButton(context)),
+                          GestureDetector(
+                            onTap: () {
+                              controller.play();
+                            },
+                            child: Container(
+                                color: Theme.of(context).primaryColor,
+                                width: 40,
+                                height: 40,
+                                child: Center(
+                                    child: Icon(FontAwesomeIcons.search))),
+                          ),
+                          Container(
+                            color: Theme.of(context).primaryColor,
+                            alignment: Alignment.center,
+                            height: 40,
+                            width: animation.value
+                                .get(AnimationProperties.widthSearchButton),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 1.0),
+                              child: Opacity(
+                                opacity: animation.value
+                                    .get(AnimationProperties.opacity),
+                                child: Text(
+                                  "Pesquisar Localização",
+                                  overflow: TextOverflow.fade,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   ElevatedButton.icon(
@@ -71,6 +109,7 @@ class SelectLocationState extends State<SelectLocationScreen>
   }
 
   _buildAnimation() {
+    _isNotAnimated = false;
     controller = AnimationController(
       duration: const Duration(milliseconds: 1800),
       vsync: this,
@@ -84,11 +123,8 @@ class SelectLocationState extends State<SelectLocationScreen>
             delay: 100.milliseconds,
             duration: 250.milliseconds,
             curve: Curves.ease)
-        .animate(
-          AnimationProperties.height,
-          tween: 45.0.tweenTo(10.0),
-        )
-        .animate(AnimationProperties.width, tween: 200.0.tweenTo(10.0))
+        .animate(AnimationProperties.widthSearchButton,
+            tween: 150.0.tweenTo(0.0))
         .animate(
           AnimationProperties.borderRadius,
           tween: BorderRadiusTween(
@@ -104,9 +140,10 @@ class SelectLocationState extends State<SelectLocationScreen>
             delay: 100.milliseconds,
             duration: 250.milliseconds,
             curve: Curves.ease)
-        .animate(AnimationProperties.height,
-            tween: Tween(begin: 10.0, end: 45.0))
-        .animate(AnimationProperties.width, tween: 10.0.tweenTo(500.0))
+        // .animate(AnimationProperties.height,
+        //     tween: Tween(begin: 10.0, end: 45.0))
+        .animate(AnimationProperties.widthTextField,
+            tween: 0.0.tweenTo(MediaQuery.of(context).size.width - 50))
         .animate(AnimationProperties.color,
             tween: ColorTween(
                 begin: AppColors.PRIMARY_DARK, end: Colors.deepPurple))

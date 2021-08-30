@@ -1,9 +1,10 @@
 enum AnimationProperties {
-  width,
+  widthSearchButton,
   height,
+  widthTextField,
   color,
   padding,
   borderRadius,
   opacity,
-  aligment
+  aligment,
 }
