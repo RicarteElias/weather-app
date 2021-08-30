@@ -10,6 +10,10 @@ class AppThemes {
       scaffoldBackgroundColor: AppColors.BACKGROUND_DARK,
       textTheme: _BODY_TEXT_DARK,
       errorColor: AppColors.ERROR_DARK,
+      inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.white10,
+          border: OutlineInputBorder(borderSide: BorderSide.none)),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
               backgroundColor:

@@ -1,7 +1,9 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
+import 'package:weather_app/core/bloc/observer/weather_observer.dart';
 import 'package:weather_app/core/components/themes.dart';
 import 'package:weather_app/core/service/http.dart';
 import 'package:weather_app/features/location/presenter/select_location_screen.dart';
@@ -19,6 +21,7 @@ var logger = Logger(
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setUpInjectorInterface();
+  Bloc.observer = WeatherObserver();
   runApp(MyApp());
 }
 
@@ -27,7 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ThemeProvider(
-        initTheme: AppThemes.light,
+        initTheme: AppThemes.dark,
         builder: (context, myTheme) {
           return MaterialApp(
               title: 'Flutter Demo',
