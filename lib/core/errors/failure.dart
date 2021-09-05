@@ -1,5 +1,5 @@
 class Failure implements Exception {
-  final String msg;
+  late String msg;
 
-  Failure(this.msg);
+  Failure();
 }

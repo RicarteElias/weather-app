@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mockito/mockito.dart';
+import 'package:weather_app/core/errors/failure.dart';
 import 'package:weather_app/core/platform/network_info.dart';
 import 'package:weather_app/core/service/http.dart';
 import 'package:weather_app/features/location/data/datasources/lcoation_remote_data_source.dart';
@@ -51,7 +52,7 @@ main() {
     test('should check if the device is online', () async {
       when(mockNetworKInfo!.isConnected)
           .thenAnswer((realInvocation) async => true);
-      repository!.searchLocation(searchText);
+      await repository!.searchLocation(searchText);
       verify(mockNetworKInfo!.isConnected);
     });
 
@@ -61,7 +62,7 @@ main() {
             .thenAnswer((realInvocation) async => true);
       });
       test(
-          'should return remote data source when the call to remote data source is success',
+          'should return a address when the call to remote data source is success',
           () async {
         when(mockLocationRemoteDataSource!.searchLocation(any))
             .thenAnswer((realInvocation) async => addressModel);
@@ -69,6 +70,27 @@ main() {
         verify(mockLocationRemoteDataSource!.searchLocation(searchText));
         expect(result!, right(address));
       });
+    });
+
+    test(
+        'should cache data locally when the call to remote data source is success',
+        () async {
+      when(mockLocationRemoteDataSource!.searchLocation(any))
+          .thenAnswer((realInvocation) async => addressModel);
+      final result = await repository!.searchLocation(searchText);
+      verify(mockLocationRemoteDataSource!.searchLocation(searchText));
+      verify(mockLocationLocalDataSource!.cacheLocation(addressModel));
+    });
+
+    test(
+        'should return a server failure when the call to remote data source is unsuccess',
+        () async {
+      when(mockLocationRemoteDataSource!.searchLocation(any))
+          .thenThrow(Failure());
+      final result = await repository!.searchLocation(searchText);
+      verify(mockLocationRemoteDataSource!.searchLocation(searchText));
+      verifyNever(mockLocationLocalDataSource!.cacheLocation(addressModel));
+      expect(result, Left(Failure()));
     });
 
     group('device is offline', () {

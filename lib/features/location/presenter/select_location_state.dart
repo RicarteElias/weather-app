@@ -10,14 +10,12 @@ import 'package:weather_app/features/location/presenter/select_location_screen.d
 
 class SelectLocationState extends State<SelectLocationScreen>
     with TickerProviderStateMixin {
-  late AnimationController controller;
+  late AnimationController _controller;
   TextEditingController _searchAddressController = TextEditingController();
   late Animation<TimelineValue<AnimationProperties>> animation;
   bool _isNotAnimated = true;
   final FocusNode _searchFieldFocus = FocusNode();
-  final _isLoading = false;
-  Widget animatedButton = Container();
-  bool isAnimated = true;
+  bool _isAnimated = true;
 
   final _pages = <Widget>[
     // *Note*: when changed child is of the same type as previous one, set the
@@ -29,7 +27,6 @@ class SelectLocationState extends State<SelectLocationScreen>
 
   @override
   Widget build(BuildContext context) {
-    animatedButton = _buildbuttonLocalization();
     if (_isNotAnimated) {
       _buildAnimation();
     }
@@ -39,7 +36,7 @@ class SelectLocationState extends State<SelectLocationScreen>
             child: Column(
           children: [
             AnimatedBuilder(
-              animation: controller,
+              animation: _controller,
               builder: (BuildContext context, widget) => Container(
                 margin: EdgeInsets.only(left: 5, top: 5, right: 5),
                 alignment: animation.value.get(AnimationProperties.aligment),
@@ -64,11 +61,8 @@ class SelectLocationState extends State<SelectLocationScreen>
               ),
             ),
             AnimatedSwitcher(
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                  return ScaleTransition(child: child, scale: animation);
-                },
-                duration: Duration(milliseconds: 300),
-                child: isAnimated
+                duration: Duration(milliseconds: 500),
+                child: _isAnimated
                     ? _buildbuttonLocalization()
                     : _buildButtonSendAddress()),
           ],
@@ -81,7 +75,7 @@ class SelectLocationState extends State<SelectLocationScreen>
     return ElevatedButton.icon(
         key: Key('1'),
         onPressed: () {
-          controller.reverse();
+          _controller.reverse();
         },
         icon: Icon(FontAwesomeIcons.mapMarker),
         label: Text("Localização"));
@@ -91,7 +85,7 @@ class SelectLocationState extends State<SelectLocationScreen>
     return ElevatedButton.icon(
         key: Key('2'),
         onPressed: () {
-          controller.reverse();
+          _controller.reverse();
         },
         icon: Icon(FontAwesomeIcons.mapMarkedAlt),
         label: Text("Encontrar Endereço"));
@@ -103,7 +97,7 @@ class SelectLocationState extends State<SelectLocationScreen>
       color: Theme.of(context).primaryColor,
       child: InkWell(
         onTap: () async {
-          controller.play();
+          _controller.play();
         },
         child: Row(
           children: [
@@ -141,7 +135,7 @@ class SelectLocationState extends State<SelectLocationScreen>
 
   _buildAnimation() {
     _isNotAnimated = false;
-    controller = AnimationController(
+    _controller = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
@@ -177,12 +171,12 @@ class SelectLocationState extends State<SelectLocationScreen>
             tween: ColorTween(
                 begin: AppColors.PRIMARY_DARK, end: Colors.deepPurple))
         .parent
-        .animate(controller);
+        .animate(_controller);
     animation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         _searchFieldFocus.requestFocus();
         setState(() {
-          isAnimated = !isAnimated;
+          _isAnimated = !_isAnimated;
         });
       }
     });

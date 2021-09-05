@@ -24,9 +24,14 @@ class LocationRepositoryImpl extends BaseService implements LocationRepository {
 
   @override
   Future<Either<Failure, Address?>?>? searchLocation(String? searchText) async {
-    networkInfo!.isConnected;
-    var result = await locationRemoteDataSource!.searchLocation(searchText);
-    return Right(result);
+    try {
+      networkInfo!.isConnected;
+      var result = await locationRemoteDataSource!.searchLocation(searchText);
+      locationLocalDataSource!.cacheLocation(result);
+      return Right(result);
+    } on Exception catch (e) {
+      return Left(Failure());
+    }
   }
 
   @override

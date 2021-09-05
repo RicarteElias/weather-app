@@ -1,8 +1,8 @@
-import 'package:weather_app/features/location/domain/entities/address.dart';
+import 'package:weather_app/features/location/data/model/address_model.dart';
 
 abstract class LocationRemoteDataSource {
-  /// Calls the geocoding endpoint.
+  /// Calls the Google Geocoding endpoint.
   ///
   /// Throws a [FailureException] for all error codes.
-  Future<Address?>? searchLocation(String? searchText);
+  Future<AddressModel?>? searchLocation(String? searchText);
 }
