@@ -16,8 +16,8 @@ final GetIt getIt = GetIt.instance;
 main() {
   final GetIt getIt = GetIt.instance;
   getIt.registerSingleton<Http>(Http());
-  LocationRepositoryMock? locationRepositoryMock;
-  SearchAddressUsecase? usecase;
+  late LocationRepositoryMock locationRepositoryMock;
+  late SearchAddressUsecase usecase;
 
   setUp(() {
     locationRepositoryMock = LocationRepositoryMock();
@@ -28,12 +28,12 @@ main() {
   final Address tAddress = MockAddress();
 
   test("Should return a address", () async {
-    when(locationRepositoryMock!.searchLocation(any))
+    when(locationRepositoryMock.searchLocation(searchText))
         .thenAnswer((realInvocation) async => Right(tAddress));
 
-    final result = await usecase!(searchText);
+    final result = await usecase(searchText);
     expect(result, Right(tAddress));
-    verify(locationRepositoryMock!.searchLocation(searchText));
+    verify(locationRepositoryMock.searchLocation(searchText));
     verifyNoMoreInteractions(locationRepositoryMock);
   });
 }

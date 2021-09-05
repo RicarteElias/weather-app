@@ -4,12 +4,13 @@ import 'package:weather_app/core/platform/network_info.dart';
 import 'package:weather_app/core/service/base_service.dart';
 import 'package:weather_app/features/location/data/datasources/lcoation_remote_data_source.dart';
 import 'package:weather_app/features/location/data/datasources/location_local_datasource.dart';
+import 'package:weather_app/features/location/data/model/address_model.dart';
 import 'package:weather_app/features/location/domain/entities/address.dart';
 import 'package:weather_app/features/location/domain/repository/location_repository.dart';
 
 class LocationRepositoryImpl extends BaseService implements LocationRepository {
-  final LocationRemoteDataSource? locationRemoteDataSource;
-  final LocationLocalDataSource? locationLocalDataSource;
+  late LocationRemoteDataSource locationRemoteDataSource;
+  late LocationLocalDataSource locationLocalDataSource;
   final NetworkInfo? networkInfo;
 
   LocationRepositoryImpl(
@@ -23,20 +24,21 @@ class LocationRepositoryImpl extends BaseService implements LocationRepository {
   // final String _key = 'AIzaSyD_mBSsoM9iauGzzUl4wgnA42BbAs7v6Zw';
 
   @override
-  Future<Either<Failure, Address?>?>? searchLocation(String? searchText) async {
+  Future<Either<Failure, Address?>> searchLocation(String searchText) async {
     try {
       networkInfo!.isConnected;
-      var result = await locationRemoteDataSource!.searchLocation(searchText);
-      locationLocalDataSource!.cacheLocation(result);
-      return Right(result);
+      AddressModel? address =
+          await locationRemoteDataSource.searchLocation(searchText);
+      locationLocalDataSource.cacheLocation(address!);
+      return Right(address);
     } on Exception catch (e) {
       return Left(Failure());
     }
   }
 
   @override
-  Future<Either<Failure, Address?>?>? searchLocationfromLocal() async {
-    var result = await locationLocalDataSource!.searchLocationFromLocal();
+  Future<Either<Failure, Address>> searchLocationfromLocal() async {
+    var result = await locationLocalDataSource.searchLocationFromLocal();
     return Right(result);
   }
 

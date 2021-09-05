@@ -4,5 +4,5 @@ abstract class LocationRemoteDataSource {
   /// Calls the Google Geocoding endpoint.
   ///
   /// Throws a [FailureException] for all error codes.
-  Future<AddressModel?>? searchLocation(String? searchText);
+  Future<AddressModel>? searchLocation(String searchText);
 }

@@ -5,12 +5,12 @@ import 'package:weather_app/features/location/domain/entities/address.dart';
 import 'package:weather_app/features/location/domain/repository/location_repository.dart';
 
 class SearchAddressUsecase with UseCase<Address, String> {
-  final LocationRepository? locationRepository;
+  final LocationRepository locationRepository;
 
   SearchAddressUsecase(this.locationRepository);
 
   @override
-  Future<Either<Failure, Address?>?>? call(String? params) {
-    return locationRepository!.searchLocation(params);
+  Future<Either<Failure, Address?>>? call(String params) {
+    return locationRepository.searchLocation(params);
   }
 }
