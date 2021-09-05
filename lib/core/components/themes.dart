@@ -12,15 +12,19 @@ class AppThemes {
       textTheme: _BODY_TEXT_DARK,
       errorColor: AppColors.ERROR_DARK,
       inputDecorationTheme: InputDecorationTheme(
-          filled: true,
-          fillColor: Colors.white10,
+          hintStyle: TextStyle(color: Colors.white),
           border: OutlineInputBorder(borderSide: BorderSide.none)),
       elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(AppColors.PRIMARY_DARK))));
-  static const _BODY_TEXT_DARK =
-      TextTheme(bodyText2: TextStyle(color: AppColors.TEXT_PRIMARY_DARK));
+        style: ButtonStyle(
+            textStyle: MaterialStateProperty.all<TextStyle>(
+                TextStyle(fontWeight: FontWeight.bold)),
+            backgroundColor:
+                MaterialStateProperty.all<Color>(AppColors.PRIMARY_DARK)),
+      ));
+  static const _BODY_TEXT_DARK = TextTheme(
+    bodyText2: TextStyle(color: AppColors.TEXT_PRIMARY_DARK),
+    subtitle1: TextStyle(color: Colors.white),
+  );
 
   ///LIGHT THEME
   static final ThemeData light = ThemeData(
@@ -30,10 +34,17 @@ class AppThemes {
       iconTheme: IconThemeData(color: Colors.white),
       textTheme: _BODY_TEXT_LIGHT,
       errorColor: AppColors.ERROR_LIGHT,
+      inputDecorationTheme: InputDecorationTheme(
+          hintStyle: TextStyle(color: Colors.white),
+          border: OutlineInputBorder(borderSide: BorderSide.none)),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
+              textStyle: MaterialStateProperty.all<TextStyle>(
+                  TextStyle(fontWeight: FontWeight.bold)),
               backgroundColor:
                   MaterialStateProperty.all<Color>(AppColors.PRIMARY_LIGHT))));
-  static const _BODY_TEXT_LIGHT =
-      TextTheme(bodyText2: TextStyle(color: AppColors.TEXT_PRIMARY_LIGHT));
+  static const _BODY_TEXT_LIGHT = TextTheme(
+    bodyText2: TextStyle(color: AppColors.TEXT_PRIMARY_LIGHT),
+    subtitle1: TextStyle(color: Colors.white),
+  );
 }
