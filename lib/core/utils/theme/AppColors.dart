@@ -14,7 +14,7 @@ class AppColors {
   ///Light Theme
   static const Color BACKGROUND_LIGHT = Colors.white10;
   static const Color ERROR_LIGHT = Color.fromRGBO(176, 0, 32, 1);
-  static const Color PRIMARY_LIGHT = Color.fromRGBO(98, 0, 232, 1);
+  static const Color PRIMARY_LIGHT = Color.fromRGBO(70, 182, 230, 1);
   static const Color PRIMARY_VARIANT_LIGHT = Color.fromRGBO(55, 0, 179, 1);
   static const Color SECONDARY_LIGHT = Color.fromRGBO(3, 218, 198, 1);
   static const Color TEXT_PRIMARY_LIGHT = Colors.white;

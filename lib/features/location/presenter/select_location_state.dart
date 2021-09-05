@@ -11,12 +11,25 @@ import 'package:weather_app/features/location/presenter/select_location_screen.d
 class SelectLocationState extends State<SelectLocationScreen>
     with TickerProviderStateMixin {
   late AnimationController controller;
-  TextEditingController searchAddressController = TextEditingController();
+  TextEditingController _searchAddressController = TextEditingController();
   late Animation<TimelineValue<AnimationProperties>> animation;
   bool _isNotAnimated = true;
+  final FocusNode _searchFieldFocus = FocusNode();
+  final _isLoading = false;
+  Widget animatedButton = Container();
+  bool isAnimated = true;
+
+  final _pages = <Widget>[
+    // *Note*: when changed child is of the same type as previous one, set the
+    // key property explicitly.
+    const Icon(Icons.looks_one, size: 64, key: ValueKey(1)),
+    const Icon(Icons.looks_two, size: 64, key: ValueKey(2)),
+    const Icon(Icons.looks_3, size: 64, key: ValueKey(3)),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    animatedButton = _buildbuttonLocalization();
     if (_isNotAnimated) {
       _buildAnimation();
     }
@@ -28,7 +41,7 @@ class SelectLocationState extends State<SelectLocationScreen>
             AnimatedBuilder(
               animation: controller,
               builder: (BuildContext context, widget) => Container(
-                margin: EdgeInsets.only(left: 5, top: 2, right: 5),
+                margin: EdgeInsets.only(left: 5, top: 5, right: 5),
                 alignment: animation.value.get(AnimationProperties.aligment),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.45,
@@ -42,64 +55,80 @@ class SelectLocationState extends State<SelectLocationScreen>
                         height: 40,
                         width: animation.value
                             .get(AnimationProperties.widthTextField),
-                        child: Center(
-                            child: TextField(
-                          decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(left: 5)),
-                          textAlign: TextAlign.left,
-                        )),
+                        child: Center(child: _buildTextField()),
                       ),
-                      Material(
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                        color: Theme.of(context).primaryColor,
-                        child: InkWell(
-                          onTap: () {
-                            controller.play();
-                          },
-                          child: Row(
-                            children: [
-                              Container(
-                                  width: 40,
-                                  height: 40,
-                                  child: Center(
-                                      child: Icon(FontAwesomeIcons.search))),
-                              Container(
-                                alignment: Alignment.center,
-                                height: 40,
-                                width: animation.value
-                                    .get(AnimationProperties.widthSearchButton),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 1.0, right: 2),
-                                  child: Opacity(
-                                    opacity: animation.value
-                                        .get(AnimationProperties.opacity),
-                                    child: Text(
-                                      "Pesquisar Localização",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                      overflow: TextOverflow.fade,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      _buildButtonSearch(),
                     ],
                   ),
                 ),
               ),
             ),
-            ElevatedButton.icon(
-                onPressed: () {
-                  controller.reverse();
+            AnimatedSwitcher(
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return ScaleTransition(child: child, scale: animation);
                 },
-                icon: Icon(FontAwesomeIcons.mapMarker),
-                label: Text("Localização"))
+                duration: Duration(milliseconds: 300),
+                child: isAnimated
+                    ? _buildbuttonLocalization()
+                    : _buildButtonSendAddress()),
           ],
         )),
+      ),
+    );
+  }
+
+  _buildbuttonLocalization() {
+    return ElevatedButton.icon(
+        key: Key('1'),
+        onPressed: () {
+          controller.reverse();
+        },
+        icon: Icon(FontAwesomeIcons.mapMarker),
+        label: Text("Localização"));
+  }
+
+  _buildButtonSendAddress() {
+    return ElevatedButton.icon(
+        key: Key('2'),
+        onPressed: () {
+          controller.reverse();
+        },
+        icon: Icon(FontAwesomeIcons.mapMarkedAlt),
+        label: Text("Encontrar Endereço"));
+  }
+
+  _buildButtonSearch() {
+    return Material(
+      borderRadius: BorderRadius.all(Radius.circular(5)),
+      color: Theme.of(context).primaryColor,
+      child: InkWell(
+        onTap: () async {
+          controller.play();
+        },
+        child: Row(
+          children: [
+            Container(
+                width: 40,
+                height: 40,
+                child: Center(child: Icon(FontAwesomeIcons.search))),
+            Container(
+              alignment: Alignment.center,
+              height: 40,
+              width: animation.value.get(AnimationProperties.widthSearchButton),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 1.0, right: 2),
+                child: Opacity(
+                  opacity: animation.value.get(AnimationProperties.opacity),
+                  child: Text(
+                    "Pesquisar Localização",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.fade,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -113,7 +142,7 @@ class SelectLocationState extends State<SelectLocationScreen>
   _buildAnimation() {
     _isNotAnimated = false;
     controller = AnimationController(
-      duration: const Duration(milliseconds: 1800),
+      duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
 
@@ -149,9 +178,22 @@ class SelectLocationState extends State<SelectLocationScreen>
                 begin: AppColors.PRIMARY_DARK, end: Colors.deepPurple))
         .parent
         .animate(controller);
+    animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _searchFieldFocus.requestFocus();
+        setState(() {
+          isAnimated = !isAnimated;
+        });
+      }
+    });
   }
 
   Widget _buildTextField() {
-    return TextField();
+    return TextField(
+      focusNode: _searchFieldFocus,
+      controller: _searchAddressController,
+      decoration: InputDecoration(contentPadding: EdgeInsets.only(left: 5)),
+      textAlign: TextAlign.left,
+    );
   }
 }
