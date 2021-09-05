@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:weather_app/core/utils/animation/animation-properties.dart';
 import 'package:weather_app/core/utils/theme/AppColors.dart';
-import 'package:weather_app/features/location/presenter/bloc/cubits/widget_cubit.dart';
 import 'package:weather_app/features/location/presenter/select_location_screen.dart';
 
 class SelectLocationState extends State<SelectLocationScreen>
@@ -23,87 +21,85 @@ class SelectLocationState extends State<SelectLocationScreen>
       _buildAnimation();
     }
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 0,
-      ),
-      body: BlocProvider(
-        create: (BuildContext context) =>
-            WidgetCubit(_buildSearchButton(context)),
+      body: SafeArea(
         child: SingleChildScrollView(
-          child: BlocBuilder<WidgetCubit, Widget>(
-            builder: (BuildContext context, state) {
-              return Column(
-                children: [
-                  AnimatedBuilder(
-                    animation: controller,
-                    builder: (BuildContext context, widget) => Container(
-                      margin: EdgeInsets.only(left: 5, top: 5, right: 5),
-                      alignment:
-                          animation.value.get(AnimationProperties.aligment),
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.45,
-                      child: Container(
-                        decoration: _buildBoxDecoration(context),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 40,
-                              width: animation.value
-                                  .get(AnimationProperties.widthTextField),
-                              child: Center(
-                                  child: TextField(
-                                decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.only(left: 5)),
-                                textAlign: TextAlign.left,
-                              )),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                controller.play();
-                              },
-                              child: Container(
+            child: Column(
+          children: [
+            AnimatedBuilder(
+              animation: controller,
+              builder: (BuildContext context, widget) => Container(
+                margin: EdgeInsets.only(left: 5, top: 2, right: 5),
+                alignment: animation.value.get(AnimationProperties.aligment),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.45,
+                child: Container(
+                  decoration: _buildBoxDecoration(context),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 40,
+                        width: animation.value
+                            .get(AnimationProperties.widthTextField),
+                        child: Center(
+                            child: TextField(
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(left: 5)),
+                          textAlign: TextAlign.left,
+                        )),
+                      ),
+                      Material(
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        color: Theme.of(context).primaryColor,
+                        child: InkWell(
+                          onTap: () {
+                            controller.play();
+                          },
+                          child: Row(
+                            children: [
+                              Container(
                                   width: 40,
                                   height: 40,
                                   child: Center(
                                       child: Icon(FontAwesomeIcons.search))),
-                            ),
-                            Container(
-                              alignment: Alignment.center,
-                              height: 40,
-                              width: animation.value
-                                  .get(AnimationProperties.widthSearchButton),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 1.0),
-                                child: Opacity(
-                                  opacity: animation.value
-                                      .get(AnimationProperties.opacity),
-                                  child: Text(
-                                    "Pesquisar Localização",
-                                    overflow: TextOverflow.fade,
+                              Container(
+                                alignment: Alignment.center,
+                                height: 40,
+                                width: animation.value
+                                    .get(AnimationProperties.widthSearchButton),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 1.0, right: 2),
+                                  child: Opacity(
+                                    opacity: animation.value
+                                        .get(AnimationProperties.opacity),
+                                    child: Text(
+                                      "Pesquisar Localização",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                      overflow: TextOverflow.fade,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                  ElevatedButton.icon(
-                      onPressed: () {
-                        controller.reverse();
-                        context.read<WidgetCubit>().change(_buildTextField());
-                      },
-                      icon: Icon(FontAwesomeIcons.mapMarker),
-                      label: Text("Localização"))
-                ],
-              );
-            },
-          ),
-        ),
+                ),
+              ),
+            ),
+            ElevatedButton.icon(
+                onPressed: () {
+                  controller.reverse();
+                },
+                icon: Icon(FontAwesomeIcons.mapMarker),
+                label: Text("Localização"))
+          ],
+        )),
       ),
     );
   }
@@ -154,22 +150,6 @@ class SelectLocationState extends State<SelectLocationScreen>
         .parent
         .animate(controller);
   }
-
-  Widget _buildSearchButton(BuildContext context) => FittedBox(
-        child: ClipRect(
-          child: ElevatedButton.icon(
-            onPressed: () {
-              controller.play();
-              context.read<WidgetCubit>().change(Container());
-            },
-            icon: Icon(FontAwesomeIcons.search),
-            label: Text(
-              "Search Location",
-              overflow: TextOverflow.fade,
-            ),
-          ),
-        ),
-      );
 
   Widget _buildTextField() {
     return TextField();
