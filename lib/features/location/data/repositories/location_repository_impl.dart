@@ -29,9 +29,9 @@ class LocationRepositoryImpl extends BaseService implements LocationRepository {
       networkInfo!.isConnected;
       AddressModel? address =
           await locationRemoteDataSource.searchLocation(searchText);
-      locationLocalDataSource.cacheLocation(address!);
+      locationLocalDataSource.cacheLocation(address);
       return Right(address);
-    } on Exception catch (e) {
+    } catch (e) {
       return Left(Failure());
     }
   }
