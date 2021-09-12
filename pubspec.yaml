@@ -43,7 +43,7 @@ dependencies:
   supercharged: ^2.0.0
   introduction_screen: ^2.1.0
   lottie: ^1.1.0
-
+  internet_connection_checker: ^0.0.1+2
 
 dev_dependencies:
   flutter_test:

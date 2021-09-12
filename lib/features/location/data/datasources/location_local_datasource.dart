@@ -7,5 +7,5 @@ abstract class LocationLocalDataSource {
   /// Throws [NoLocalDataException] if no cached data is present.
   Future<AddressModel> searchLocationFromLocal();
 
-  Future<void> cacheLocation(AddressModel? addressToCache);
+  Future<void>? cacheLocation(AddressModel? addressToCache);
 }

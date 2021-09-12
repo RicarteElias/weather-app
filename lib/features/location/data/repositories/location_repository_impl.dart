@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:weather_app/core/errors/failure.dart';
-import 'package:weather_app/core/platform/network_info.dart';
+import 'package:weather_app/core/network/network_info.dart';
 import 'package:weather_app/core/service/base_service.dart';
 import 'package:weather_app/features/location/data/datasources/lcoation_remote_data_source.dart';
 import 'package:weather_app/features/location/data/datasources/location_local_datasource.dart';
