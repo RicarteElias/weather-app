@@ -39,7 +39,7 @@ class LocationRepositoryImpl extends BaseService implements LocationRepository {
   @override
   Future<Either<Failure, Address>> searchLocationfromLocal() async {
     var result = await locationLocalDataSource.searchLocationFromLocal();
-    return Right(result);
+    return Right(result!);
   }
 
 // Future<Either<Failure, Weather?>>? searchWeather(num lat, num lng) {
