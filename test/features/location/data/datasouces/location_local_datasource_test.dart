@@ -6,16 +6,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_app/features/location/data/datasources/implementation/LocationLocalDataSourceImpl.dart';
 import 'package:weather_app/features/location/data/datasources/location_local_datasource.dart';
 import 'package:weather_app/features/location/data/model/address_model.dart';
+import 'package:weather_app/main.dart';
 
 import '../../../../fixtures/fixtures_reader.dart';
-import '../../../../mocks/mock_models.mocks.dart';
 
 class MockSharedPreferences extends Mock implements SharedPreferences {}
 
 void main() {
   late LocationLocalDataSource dataSource;
   late MockSharedPreferences sharedPreferences;
-
   setUp(() {
     sharedPreferences = MockSharedPreferences();
     dataSource =
@@ -38,12 +37,13 @@ void main() {
   });
 
   group('Cache Address', () {
-    final tAddressModel = MockAddressModel();
+    final Map<String, dynamic> jsonMap = json.decode(fixture('address.json'));
+    final tAddressModel = AddressModel.fromJson(jsonMap);
+    logger.wtf(jsonMap);
     test('Should call SharedPreferences to cache the data', () async {
-      final result = await dataSource.searchLocationFromLocal();
-      verify(sharedPreferences.getString('CACHED_ADDRESS'));
-      expect(result!.formmatedAddress, tAddressModel.formmatedAddress);
-      expect(result, isA<AddressModel>());
+      dataSource.cacheLocation(tAddressModel);
+      final expectedJsonString = jsonEncode(tAddressModel);
+      verify(sharedPreferences.setString('CACHED_ADDRESS', expectedJsonString));
     });
   });
 }

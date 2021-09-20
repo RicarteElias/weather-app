@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather_app/core/errors/cache_exception.dart';
 import 'package:weather_app/features/location/data/datasources/location_local_datasource.dart';
 import 'package:weather_app/features/location/data/model/address_model.dart';
 
@@ -11,8 +12,12 @@ class LocationLocalDataSourceImpl implements LocationLocalDataSource {
 
   @override
   Future<void>? cacheLocation(AddressModel? addressToCache) {
-    // TODO: implement cacheLocation
-    throw UnimplementedError();
+    late final String jsonString = jsonEncode(addressToCache!.toJson());
+    if (jsonString != null) {
+      sharedPreferences.setString('CACHED_ADDRESS', jsonString);
+    } else {
+      throw CacheException("Não encontramos nenhum endereço para salvar");
+    }
   }
 
   @override

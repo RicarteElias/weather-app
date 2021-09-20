@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class Failure extends Equatable implements Exception {
-  String? msg;
+  final String? msg;
 
   Failure([this.msg]);
 

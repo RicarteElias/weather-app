@@ -91,12 +91,5 @@ main() {
         expect(result, Left(Failure()));
       });
     });
-
-    group('device is offline', () {
-      setUp(() {
-        when(mockNetworKInfo!.isConnected)
-            .thenAnswer((realInvocation) async => false);
-      });
-    });
   });
 }
