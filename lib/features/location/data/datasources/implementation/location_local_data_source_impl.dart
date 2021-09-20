@@ -12,9 +12,9 @@ class LocationLocalDataSourceImpl implements LocationLocalDataSource {
 
   @override
   Future<void>? cacheLocation(AddressModel? addressToCache) {
-    late final String jsonString = jsonEncode(addressToCache!.toJson());
-    if (jsonString != null) {
-      sharedPreferences.setString('CACHED_ADDRESS', jsonString);
+    if (addressToCache != null) {
+      sharedPreferences.setString(
+          'CACHED_ADDRESS', json.encode(addressToCache.toJson()));
     } else {
       throw CacheException("Não encontramos nenhum endereço para salvar");
     }

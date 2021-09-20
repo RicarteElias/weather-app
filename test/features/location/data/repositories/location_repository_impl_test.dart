@@ -64,29 +64,35 @@ main() {
       test(
           'should return a address when the call to remote data source is success',
           () async {
-        when(mockLocationRemoteDataSource.searchLocation(searchText))
+        when(mockLocationRemoteDataSource.searchLocation(
+                searchText: searchText))
             .thenAnswer((realInvocation) async => addressModel);
         final result = await repository.searchLocation(searchText);
-        verify(mockLocationRemoteDataSource.searchLocation(searchText));
+        verify(mockLocationRemoteDataSource.searchLocation(
+            searchText: searchText));
         expect(result, right(address));
       });
       test(
           'should cache data locally when the call to remote data source is success',
           () async {
-        when(mockLocationRemoteDataSource.searchLocation(searchText))
+        when(mockLocationRemoteDataSource.searchLocation(
+                searchText: searchText))
             .thenAnswer((realInvocation) async => addressModel);
         final result = await repository.searchLocation(searchText);
-        verify(mockLocationRemoteDataSource.searchLocation(searchText));
+        verify(mockLocationRemoteDataSource.searchLocation(
+            searchText: searchText));
         verify(mockLocationLocalDataSource.cacheLocation(addressModel));
       });
 
       test(
           'should return a server failure when the call to remote data source is unsuccess',
           () async {
-        when(mockLocationRemoteDataSource.searchLocation(searchText))
+        when(mockLocationRemoteDataSource.searchLocation(
+                searchText: searchText))
             .thenThrow(Left(Failure()));
         final result = await repository.searchLocation(searchText);
-        verify(mockLocationRemoteDataSource.searchLocation(searchText));
+        verify(mockLocationRemoteDataSource.searchLocation(
+            searchText: searchText));
         verifyNever(mockLocationLocalDataSource.cacheLocation(addressModel));
         expect(result, Left(Failure()));
       });
