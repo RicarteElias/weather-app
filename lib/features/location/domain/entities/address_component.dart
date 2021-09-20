@@ -1,7 +1,7 @@
 class AddressComponent {
   String longName;
   String shortName;
-  List<String> type;
+  List<String> types;
 
-  AddressComponent(this.longName, this.shortName, this.type);
+  AddressComponent(this.longName, this.shortName, this.types);
 }

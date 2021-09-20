@@ -1,5 +1,10 @@
-class Failure implements Exception {
-  final String msg;
+import 'package:equatable/equatable.dart';
 
-  Failure(this.msg);
+class Failure extends Equatable implements Exception {
+  final String? msg;
+
+  Failure([this.msg]);
+
+  @override
+  List<Object?> get props => [this.msg];
 }

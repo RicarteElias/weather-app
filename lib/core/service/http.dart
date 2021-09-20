@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:dio/native_imp.dart'; //If in browser, import 'package:dio/browser_imp.dart'
+import 'package:dio/native_imp.dart';
 
 class Http extends DioForNative {
   Http() {
